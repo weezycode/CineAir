@@ -1,7 +1,7 @@
   <!-- Début menu navigation -->
   <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
       <a class="navbar-brand logo" href="index.php">
-          <img src="./img/logo.png" class="rounded-circle logo" alt="logo">
+          <img src="./dist/img/logo.png" class="rounded-circle logo" alt="logo">
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
           <span class="navbar-toggler-icon"></span>
