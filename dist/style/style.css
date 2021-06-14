@@ -1,0 +1,100 @@
+body{
+    background-color: #938791;
+   font-family: Roboto, Arial, Helvetica, sans-serif; 
+}
+.nav-link   {
+    color: white;
+    text-align: right ;
+}
+.logo{
+   margin-left: 30px;
+   max-width: 50px;
+}
+.header{
+    background-color: #594757;
+    color: white;
+}
+.header h1 {
+    font-size: 40px;
+    text-align: center;
+    text-transform: uppercase;
+
+}
+
+.jumbotron{
+    background-color: #594757;
+   
+}
+.jumbotron  p{
+    text-align: center;
+    font-size: 30px;
+}
+.card p{
+    font-size: 20px;
+    text-align: center;
+}
+.card-img-top {
+    height: 350px;
+}
+.card{
+    margin-top: 50px;
+}
+.btn{
+    text-align: center !important;
+}
+.btn-primary{
+    background-color: #938791;
+    border-color: #938791;
+}
+h4{
+    text-align: center;
+}
+h2{
+    color: white;
+    text-align: center;
+    margin-top: 50px;
+}
+footer{
+    background-color: #594757;
+    margin-top: 50px;
+    height: 50px;
+}
+.footer p{
+    color: white;
+    font-size: 20px;
+    padding-top: 10px;
+    text-align: center;
+}
+/* page reservation */
+.input label {
+    color: white;
+    font-size: 20px;
+}
+.input h3 {
+    text-align: center;
+    color: white;
+}
+.input{
+    margin-top: 70px !important;
+}
+.envoie{
+    float: right !important;
+    margin-top: 50px;
+    font-size: 18px;
+}
+.display-none{
+    display: none;
+}
+p .msg{
+    font-size: 18px; 
+    color: white;
+}
+.modal p, h4{
+    font-size: 20px;
+}
+.block{
+    display: block;
+}
+.none{
+    display: none;
+}
