@@ -1,13 +1,20 @@
 <?php
-$titre = "";
-$film = "";
-$projection = "";
-
 if (isset($_GET['id'])) {
     $titre = $_GET['id'];
 } else {
     header('location: index.php');
 }
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'vendor/autoload.php';
+$erreur = "";
+//$titre = "";
+$film = "";
+$projection = "";
+
+
 
 
 $nameErr = $emailErr = $filmErr = $titreErr = $nombreError = "";
@@ -49,13 +56,66 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $titre_film = format_input($_POST['titre']);
         $uniqid = format_input($unid);
     }
+    if ($nombre == 1) {
+        $personne = "personne";
+    } else {
+        $personne = "personnes";
+    }
     if (!$nameErr) {
         $insert = $bd->prepare('INSERT INTO reservation(nom,email,titre,nombre,details,num_reservation)
       VALUES (?,?,?,?,?,?)');
         $insert->execute(array($name, $email, $titre, $nombre, $details, $uniqid));
 
-        if ($insert) {
-            header('Location: index.php?id=' . $uniqid);
+        $mail = new PHPMailer(true);
+        try {
+            //Server settings help to send mail ! 
+            $mail->SMTPOptions = array(
+                'ssl' => array(
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                    'allow_self_signed' => true
+                )
+            );
+            // Enable verbose debug output
+            $mail->isSMTP();
+            //$mail->SMTPDebug  = 4;                                   // Set mailer to use SMTP
+            $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
+            $mail->SMTPAuth = true;                               // Enable SMTP authentication
+            $mail->Username = 'moudou.openclassrooms@gmail.com';                 // SMTP username
+            $mail->Password = 'TheCoderWolf';                           // SMTP password
+            $mail->SMTPSecure = 'tls';                       // Enable TLS encryption, `ssl` also accepted
+            $mail->Port = 587;                              // TCP port to connect to
+
+            //  $mail->isSMTP();
+            // $mail->Host = 'relay-hosting.secureserver.net';
+            // $mail->Port = 25;
+            // $mail->SMTPAuth = false;
+            // $mail->SMTPSecure = false;
+            //Recipients  commande.iliko@ilikoshop.app
+            $mail->setFrom('moudou.openclassrooms@gmail.com');
+            $mail->addAddress($email);               // Name is optional
+            $mail->addReplyTo('moudou.openclassrooms@gmail.com', 'Réservation');
+            // $mail->addCC('cc@example.com');
+            // $mail->addBCC('bcc@example.com');
+
+            //Attachments
+            // $mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
+            //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+
+            //Content
+            $mail->isHTML(true);
+            $mail->CharSet = 'UTF-8';                                 // Set email format to HTML
+            $mail->Subject =  'Confirmation de réservation';
+            $mail->Body    =  '<p>Bonjour :' . $name . '</p> 
+            <p> Merci d\'avoir réservé le film : ' . $titre . ' pour ' . $nombre . ' ' . $personne . ' </p>
+            <p>' . $details . '</p>';
+            //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+            if ($mail->send() && $insert) {
+                header('Location:index.php?id=' . $uniqid);
+            }
+        } catch (Exception $e) {
+            echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
         }
     }
 }

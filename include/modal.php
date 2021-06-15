@@ -16,6 +16,7 @@ if (isset($id)) {
                     <p>Numéro réservation :<?= $id ?></p>
                     <p>Nombre de personnes : <?= $nombre ?></p>
                     <p>Diffusion : <?= $film ?></p>
+                    <p>Nous vous avons envoyé une confirmation par mail.</p>
                 </div>
             </div>
         </div>
