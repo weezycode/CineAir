@@ -85,23 +85,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $mail->Password = 'TheCoderWolf';                           // SMTP password
             $mail->SMTPSecure = 'tls';                       // Enable TLS encryption, `ssl` also accepted
             $mail->Port = 587;                              // TCP port to connect to
-
-            //  $mail->isSMTP();
-            // $mail->Host = 'relay-hosting.secureserver.net';
-            // $mail->Port = 25;
-            // $mail->SMTPAuth = false;
-            // $mail->SMTPSecure = false;
-            //Recipients  commande.iliko@ilikoshop.app
             $mail->setFrom('moudou.openclassrooms@gmail.com');
             $mail->addAddress($email);               // Name is optional
             $mail->addReplyTo('moudou.openclassrooms@gmail.com', 'Réservation');
-            // $mail->addCC('cc@example.com');
-            // $mail->addBCC('bcc@example.com');
-
-            //Attachments
-            // $mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
-            //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
-
             //Content
             $mail->isHTML(true);
             $mail->CharSet = 'UTF-8';                                 // Set email format to HTML
