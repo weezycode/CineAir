@@ -1,8 +1,8 @@
 <?php
 include('config/config.php');
-
-include('include/req.php');
-
+if (file_exists('include/req.php')) {
+    include('include/req.php');
+}
 include('include/head.php');
 //include('../include/nav.php'); 
 ?>

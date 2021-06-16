@@ -9,14 +9,13 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 require 'vendor/autoload.php';
+include('variables.php');
 $erreur = "";
 //$titre = "";
 $film = "";
 $projection = "";
 
-
-
-
+// declare variable
 $nameErr = $emailErr = $filmErr = $titreErr = $nombreError = "";
 $name = $email = $nombre = $details = $titre_film = $uniqid = "";
 $unid = uniqid();
@@ -79,22 +78,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Enable verbose debug output
             $mail->isSMTP();
             //$mail->SMTPDebug  = 4;                                   // Set mailer to use SMTP
-            $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
+            $mail->Host = $host;  // Specify main and backup SMTP servers
             $mail->SMTPAuth = true;                               // Enable SMTP authentication
-            $mail->Username = 'moudou.openclassrooms@gmail.com';                 // SMTP username
-            $mail->Password = 'TheCoderWolf';                           // SMTP password
-            $mail->SMTPSecure = 'tls';                       // Enable TLS encryption, `ssl` also accepted
+            $mail->Username = $username;                 // SMTP username
+            $mail->Password = $password;                           // SMTP password
+            $mail->SMTPSecure = $tls;                       // Enable TLS encryption, `ssl` also accepted
             $mail->Port = 587;                              // TCP port to connect to
-            $mail->setFrom('moudou.openclassrooms@gmail.com');
+            $mail->setFrom($username);
             $mail->addAddress($email);               // Name is optional
-            $mail->addReplyTo('moudou.openclassrooms@gmail.com', 'Réservation');
+            $mail->addReplyTo($username, $reservation);
             //Content
             $mail->isHTML(true);
-            $mail->CharSet = 'UTF-8';                                 // Set email format to HTML
-            $mail->Subject =  'Confirmation de réservation';
-            $mail->Body    =  '<p>Bonjour :' . $name . '</p> 
-            <p> Merci d\'avoir réservé le film : ' . $titre . ' pour ' . $nombre . ' ' . $personne . ' </p>
-            <p>' . $details . '</p>';
+            $mail->CharSet = $charset;                                 // Set email format to HTML
+            $mail->Subject =  $subject;
+            $mail->Body    =  $message;
             //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
             if ($mail->send() && $insert) {
