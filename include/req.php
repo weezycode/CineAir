@@ -5,15 +5,17 @@ if (isset($_GET['id'])) {
     header('location: index.php');
 }
 
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 require 'vendor/autoload.php';
-include('variables.php');
+
+
+
 $erreur = "";
 //$titre = "";
-$film = "";
-$projection = "";
+
 
 // declare variable
 $nameErr = $emailErr = $filmErr = $titreErr = $nombreError = "";
@@ -64,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $insert = $bd->prepare('INSERT INTO reservation(nom,email,titre,nombre,details,num_reservation)
       VALUES (?,?,?,?,?,?)');
         $insert->execute(array($name, $email, $titre, $nombre, $details, $uniqid));
-
+        include('variables.php');
         $mail = new PHPMailer(true);
         try {
             //Server settings help to send mail ! 
@@ -86,12 +88,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $mail->Port = 587;                              // TCP port to connect to
             $mail->setFrom($username);
             $mail->addAddress($email);               // Name is optional
-            $mail->addReplyTo($username, $reservation);
+            $mail->addReplyTo($username, $sender);
             //Content
             $mail->isHTML(true);
             $mail->CharSet = $charset;                                 // Set email format to HTML
             $mail->Subject =  $subject;
             $mail->Body    =  $message;
+            $mail->FromName = $sender;
             //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
             if ($mail->send() && $insert) {
