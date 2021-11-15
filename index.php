@@ -1,3 +1,4 @@
+<?php var_dump($_ENV); ?>
 <?php include('config/config.php'); ?>
 <?php include('include/head.php'); ?>
 <?php include('include/nav.php'); ?>
